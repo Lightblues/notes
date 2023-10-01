@@ -9,8 +9,12 @@
   <meta name="description" content="个人笔记部署">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <!-- 从CDN加载Docsify的样式表，主题为vue。 -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <!-- <style>
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"> -->
+  <link rel="stylesheet" href="./resources/vue.css" />
+  <!-- GitTalk 插件 https://docsify.js.org/#/plugins?id=gitalk -->
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css" /> -->
+  <link rel="stylesheet" href="./resources/gitalk.css" />
+    <!-- <style>
     .sidebar {
       padding: 0 0 0 0;
     }
@@ -35,13 +39,19 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      loadNavbar: true,
-      // 侧边栏, 根据 `_sidebar.md` 渲染
+      // 侧边栏, 根据 `_sidebar.md` 渲染 https://docsify.js.org/#/more-pages
       loadSidebar: true,
+      // 设置TOC层级
+      subMaxLevel: 4,
+      // 右上角导航, 根据 `_navbar.md` 配置 https://docsify.js.org/#/custom-navbar
+      loadNavbar: true,
+      // 设置cover, `_coverpage.md` https://docsify.js.org/#/cover
+      coverpage: true,
       topMargin: 90,
       auto2top: true,
+      // 根据 `_404.md` 
       notFoundPage: true,
-      subMaxLevel: 4,
+
       themeColor: 'rgb(23,147,209)',
       search: {
           placeholder: '搜索...',
@@ -121,24 +131,51 @@
   <script src="./resources/docsify.min.js"></script>
   <!-- <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script> -->
   <script src="./resources/prism-bash.min.js"></script>
+
+  <!-- GitTalk 插件 https://docsify.js.org/#/plugins?id=gitalk -->
   <!-- <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script> -->
   <script src="./resources/plugins/gitalk.min.js"></script>
   <!-- <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script> -->
   <script src="./resources/gitalk.min.js"></script>
+
   <!-- <script src="//cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script> -->
   <script src="./resources/docsify-pagination.min.js"></script>
   <!-- <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script> -->
   <script src="./resources/plugins/search.min.js"></script>
   <!-- <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script> -->
   <script src="./resources/vanilla-back-to-top.min.js"></script>
+  
   <script>
+    let client_id = '6cd2bd3d20e9f5643328';
+    let client_secret = '7fd796aa5ed9c29696808897f41acda98d275c2c';
+
+    let props = {
+      clientID: client_id,
+      clientSecret: client_secret,
+      repo: 'notes',
+      owner: 'Lightblues',
+      admin: ['Lightblues'],
+      // facebook-like distraction free mode
+      distractionFreeMode: false,
+      id: decodeURI(location.hash.split('?')[0]),
+      language: 'en',
+    };
+    let gitalk = new Gitalk(props);
+    // 哈希路由切换时 重新加载Gitalk
+    window.addEventListener('hashchange', onHashChange);
+    function onHashChange() {
+      props.id = decodeURI(location.hash.split('?')[0]); //如果不切分，在docsify里面的各个段落都会生成新的评论issue
+    }
+  </script>
+
+  <!-- <script>
     function change_search_plugin_order() {
       let search_plugin = document.getElementsByClassName('search')[0];
       let app_name = document.getElementsByClassName('app-name')[0];
       search_plugin.parentNode.insertBefore(app_name, search_plugin);
     }
     setTimeout(change_search_plugin_order, 1);
-  </script>
+  </script> -->
   <!-- 添加网站运行时间统计 -->
   <script>
       function siteTime() {
