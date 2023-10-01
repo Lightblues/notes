@@ -70,15 +70,15 @@
           function (hook, vm) {
             hook.beforeEach(function (html) {
               let edit_url =
-                'https://github.com/ArchLinuxStudio/ArchLinuxTutorial/blob/master/docs/' +
+                'https://github.com/Lightblues/notes/blob/master/docs/' +
                 vm.route.file;
               let editHtml = '[📝 Edit This Page](' + edit_url + ')\n';
 
-              let client_id = '296c581fc4b2a837a1e3';
-              let client_secret = '7e7f0ad1809fa4a1915430ade04835f6849ab56a';
+              let client_id = '6cd2bd3d20e9f5643328';
+              let client_secret = '7fd796aa5ed9c29696808897f41acda98d275c2c';
 
               let date_url =
-                'https://api.github.com/repos/ArchLinuxStudio/ArchLinuxTutorial/commits?per_page=1&path=docs/' +
+                'https://api.github.com/repos/Lightblues/notes/commits?per_page=1&path=docs/' +
                 vm.config.basePath +
                 encodeURIComponent(vm.route.file);
 
@@ -142,6 +142,19 @@
   <!-- <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script> -->
   <script src="./resources/vanilla-back-to-top.min.js"></script>
   
+  <!-- Latex 支持 -->
+  <script src="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <script src="//cdn.jsdelivr.net/npm/marked@4"></script>
+  <!-- CDN files for docsify-katex -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
+  <!-- or <script src="//cdn.jsdelivr.net/gh/upupming/docsify-katex@latest/dist/docsify-katex.js"></script> -->
+
+  <!-- 黑色主题 https://docsify-darklight-theme.boopathikumar.me/#/installation -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css" title="docsify-darklight-theme" type="text/css"/>
+  <script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js" type="text/javascript"></script>
+
+
   <script>
     let client_id = '6cd2bd3d20e9f5643328';
     let client_secret = '7fd796aa5ed9c29696808897f41acda98d275c2c';
@@ -172,6 +185,7 @@
       textColor: '#fff',
     });
   </script>
+
 
   <!-- <script>
     function change_search_plugin_order() {

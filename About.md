@@ -19,3 +19,7 @@ cd docs && python -m http.server 3000
 
 - [gittalk](https://github.com/gitalk/gitalk)
 - [docsify-pagination](https://github.com/imyelo/docsify-pagination)
+
+相关资源和插件
+
+- [awesome](https://docsify.js.org/#/awesome) 🚩
