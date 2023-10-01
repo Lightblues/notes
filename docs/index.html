@@ -35,6 +35,7 @@
     }
   </style> -->
 </head>
+
 <body>
   <div id="app"></div>
   <script>
@@ -54,17 +55,11 @@
 
       themeColor: 'rgb(23,147,209)',
       search: {
-          placeholder: '搜索...',
+          placeholder: 'Search...',
       },
       name: 'Easonsi\'s Notes',
       repo: '',
       formatUpdated: '{YYYY}-{MM}-{DD}',
-        pagination: {
-          previousText: 'Previous',
-          nextText: 'Next',
-          crossChapter: true,
-          crossChapterText: true,
-        },
         pagination: {
           previousText: 'Previous',
           nextText: 'Next',
@@ -140,8 +135,10 @@
 
   <!-- <script src="//cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script> -->
   <script src="./resources/docsify-pagination.min.js"></script>
+
   <!-- <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script> -->
   <script src="./resources/plugins/search.min.js"></script>
+
   <!-- <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script> -->
   <script src="./resources/vanilla-back-to-top.min.js"></script>
   
@@ -168,6 +165,14 @@
     }
   </script>
 
+  <script>
+    addBackToTop({
+      diameter: 56,
+      backgroundColor: 'rgb(23,147,209)',
+      textColor: '#fff',
+    });
+  </script>
+
   <!-- <script>
     function change_search_plugin_order() {
       let search_plugin = document.getElementsByClassName('search')[0];
@@ -176,54 +181,55 @@
     }
     setTimeout(change_search_plugin_order, 1);
   </script> -->
+
   <!-- 添加网站运行时间统计 -->
   <script>
-      function siteTime() {
-        setTimeout(siteTime, 1000);
-        let seconds = 1000;
-        let minutes = seconds * 60;
-        let hours = minutes * 60;
-        let days = hours * 24;
-        let today = new Date();
-        let todayYear = today.getFullYear();
-        let todayMonth = today.getMonth() + 1;
-        let todayDate = today.getDate();
-        let todayHour = today.getHours();
-        let todayMinute = today.getMinutes();
-        let todaySecond = today.getSeconds();
+    function siteTime() {
+      setTimeout(siteTime, 1000);
+      let seconds = 1000;
+      let minutes = seconds * 60;
+      let hours = minutes * 60;
+      let days = hours * 24;
+      let today = new Date();
+      let todayYear = today.getFullYear();
+      let todayMonth = today.getMonth() + 1;
+      let todayDate = today.getDate();
+      let todayHour = today.getHours();
+      let todayMinute = today.getMinutes();
+      let todaySecond = today.getSeconds();
 
-        let t1 = Date.UTC(2023, 10, 1, 0, 0, 0);
-        let t2 = Date.UTC(
-          todayYear,
-          todayMonth,
-          todayDate,
-          todayHour,
-          todayMinute,
-          todaySecond
-        );
-        let diff = t2 - t1;
-        let diffDays = Math.floor(diff / days);
-        let diffHours = Math.floor((diff - diffDays * days) / hours);
-        let diffMinutes = Math.floor(
-          (diff - diffDays * days - diffHours * hours) / minutes
-        );
-        let diffSeconds = Math.floor(
-          (diff - diffDays * days - diffHours * hours - diffMinutes * minutes) /
-            seconds
-        );
-        Docsify.dom.find('.runtime').innerHTML =
-          'Arch Linux Studio has been running for ' +
-          diffDays +
-          ' days ' +
-          diffHours +
-          ' hours ' +
-          diffMinutes +
-          ' minutes ' +
-          diffSeconds +
-          ' seconds';
-      }
-      // 先让网页加载完，否则 Docsify.dom.find('.runtime') == null
-      setTimeout(siteTime, 500);
-    </script>
+      let t1 = Date.UTC(2023, 10, 1, 0, 0, 0);
+      let t2 = Date.UTC(
+        todayYear,
+        todayMonth,
+        todayDate,
+        todayHour,
+        todayMinute,
+        todaySecond
+      );
+      let diff = t2 - t1;
+      let diffDays = Math.floor(diff / days);
+      let diffHours = Math.floor((diff - diffDays * days) / hours);
+      let diffMinutes = Math.floor(
+        (diff - diffDays * days - diffHours * hours) / minutes
+      );
+      let diffSeconds = Math.floor(
+        (diff - diffDays * days - diffHours * hours - diffMinutes * minutes) /
+          seconds
+      );
+      Docsify.dom.find('.runtime').innerHTML =
+        'Easonsi\'s Notes has been running for ' +
+        diffDays +
+        ' days ' +
+        diffHours +
+        ' hours ' +
+        diffMinutes +
+        ' minutes ' +
+        diffSeconds +
+        ' seconds';
+    }
+    // 先让网页加载完，否则 Docsify.dom.find('.runtime') == null
+    setTimeout(siteTime, 500);
+  </script>
 </body>
 </html>
