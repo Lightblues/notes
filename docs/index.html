@@ -1,22 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+<!-- head 包含所有头部元素，比如meta数据、链接（link）到样式表等 -->
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Easonsi's Personal Notes</title>
+  <!-- 设置Internet Explorer和Chrome的兼容模式。 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
+  <meta name="description" content="个人笔记部署">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <!-- 从CDN加载Docsify的样式表，主题为vue。 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- <style>
+    .sidebar {
+      padding: 0 0 0 0;
+    }
+
+    .app-name {
+      padding-top: 10px;
+
+      border-bottom: 4px solid rgb(0, 136, 204);
+      background-color: rgb(51, 51, 51);
+    }
+
+    .app-name-link img {
+      width: 70%;
+    }
+
+    .seo-pic {
+      display: none;
+    }
+  </style> -->
 </head>
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: '',
-      repo: ''
+      loadNavbar: true,
+      // 侧边栏, 根据 `_sidebar.md` 渲染
+      loadSidebar: true,
+      topMargin: 90,
+      auto2top: true,
+      notFoundPage: true,
+      subMaxLevel: 4,
+      themeColor: 'rgb(23,147,209)',
+      search: {
+          placeholder: '搜索...',
+      },
+      name: 'Easonsi\'s Notes',
+      repo: '',
+      formatUpdated: '{YYYY}-{MM}-{DD}',
+        pagination: {
+          previousText: 'Previous',
+          nextText: 'Next',
+          crossChapter: true,
+          crossChapterText: true,
+        },
+        pagination: {
+          previousText: 'Previous',
+          nextText: 'Next',
+          crossChapter: true,
+          crossChapterText: true,
+        },
+        plugins: [
+          function (hook, vm) {
+            hook.beforeEach(function (html) {
+              let edit_url =
+                'https://github.com/ArchLinuxStudio/ArchLinuxTutorial/blob/master/docs/' +
+                vm.route.file;
+              let editHtml = '[📝 Edit This Page](' + edit_url + ')\n';
+
+              let client_id = '296c581fc4b2a837a1e3';
+              let client_secret = '7e7f0ad1809fa4a1915430ade04835f6849ab56a';
+
+              let date_url =
+                'https://api.github.com/repos/ArchLinuxStudio/ArchLinuxTutorial/commits?per_page=1&path=docs/' +
+                vm.config.basePath +
+                encodeURIComponent(vm.route.file);
+
+              fetch(date_url, {
+                headers: {
+                  Authorization: `${client_id}:${client_secret}`,
+                },
+              })
+                .then((response) => {
+                  return response.json();
+                })
+                .then((commits) => {
+                  let modified = commits[0]['commit']['committer'][
+                    'date'
+                  ].slice(0, 10);
+                  document.getElementById('last-modified').textContent =
+                    'Update date: ' + modified;
+                });
+
+              return (
+                '<span id="last-modified">Update date: Fetching...</span>' +
+                '\n' +
+                html +
+                '\n----\n' +
+                editHtml
+              );
+            });
+
+            hook.mounted(function () {
+              // 添加网站运行时间
+              let dom = Docsify.dom;
+              let runTimeNode = dom.create('div');
+              runTimeNode.className = 'runtime';
+              runTimeNode.style =
+                'color: #8590a6;max-width: 80%;margin: 0 auto 20px;padding: 0 15px 0 15px;';
+              dom.appendTo(dom.find('.content'), runTimeNode);
+            });
+          },
+        ],
     }
   </script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- 加载docsify脚本 -->
+  <!-- <script src="//cdn.jsdelivr.net/npm/docsify@4"></script> -->
+  <!-- <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script> -->
+  <script src="./resources/docsify.min.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script> -->
+  <script src="./resources/prism-bash.min.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script> -->
+  <script src="./resources/plugins/gitalk.min.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script> -->
+  <script src="./resources/gitalk.min.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script> -->
+  <script src="./resources/docsify-pagination.min.js"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script> -->
+  <script src="./resources/plugins/search.min.js"></script>
+  <!-- <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script> -->
+  <script src="./resources/vanilla-back-to-top.min.js"></script>
+  <script>
+    function change_search_plugin_order() {
+      let search_plugin = document.getElementsByClassName('search')[0];
+      let app_name = document.getElementsByClassName('app-name')[0];
+      search_plugin.parentNode.insertBefore(app_name, search_plugin);
+    }
+    setTimeout(change_search_plugin_order, 1);
+  </script>
+  <!-- 添加网站运行时间统计 -->
+  <script>
+      function siteTime() {
+        setTimeout(siteTime, 1000);
+        let seconds = 1000;
+        let minutes = seconds * 60;
+        let hours = minutes * 60;
+        let days = hours * 24;
+        let today = new Date();
+        let todayYear = today.getFullYear();
+        let todayMonth = today.getMonth() + 1;
+        let todayDate = today.getDate();
+        let todayHour = today.getHours();
+        let todayMinute = today.getMinutes();
+        let todaySecond = today.getSeconds();
+
+        let t1 = Date.UTC(2023, 10, 1, 0, 0, 0);
+        let t2 = Date.UTC(
+          todayYear,
+          todayMonth,
+          todayDate,
+          todayHour,
+          todayMinute,
+          todaySecond
+        );
+        let diff = t2 - t1;
+        let diffDays = Math.floor(diff / days);
+        let diffHours = Math.floor((diff - diffDays * days) / hours);
+        let diffMinutes = Math.floor(
+          (diff - diffDays * days - diffHours * hours) / minutes
+        );
+        let diffSeconds = Math.floor(
+          (diff - diffDays * days - diffHours * hours - diffMinutes * minutes) /
+            seconds
+        );
+        Docsify.dom.find('.runtime').innerHTML =
+          'Arch Linux Studio has been running for ' +
+          diffDays +
+          ' days ' +
+          diffHours +
+          ' hours ' +
+          diffMinutes +
+          ' minutes ' +
+          diffSeconds +
+          ' seconds';
+      }
+      // 先让网页加载完，否则 Docsify.dom.find('.runtime') == null
+      setTimeout(siteTime, 500);
+    </script>
 </body>
 </html>
